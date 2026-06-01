@@ -1,7 +1,7 @@
 
 function Footer() {
   return (
-    <footer className="bg-transparent text-white text-center px-4 py-4" style={{ borderTop: "1px solid rgba(41,197,246,0.1)" }}>
+    <footer className="bg-[#06090f]/30 backdrop-blur-sm text-white text-center px-4 py-4" style={{ borderTop: "1px solid rgba(41,197,246,0.1)" }}>
       <h2 className="mb-3 font-bold text-lg font-['Exo_2',sans-serif] text-[#29c5f6] tracking-[0.1em]">
         ORBITAL
       </h2>

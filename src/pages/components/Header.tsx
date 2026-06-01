@@ -7,7 +7,7 @@ function Header() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="bg-transparent h-14 min-[992px]:h-24 flex items-center relative font-['Exo_2',sans-serif]"
+    <header className="bg-[#06090f]/30 backdrop-blur-sm h-14 min-[992px]:h-24 flex items-center relative font-['Exo_2',sans-serif]"
       style={{ borderBottom: "1px solid rgba(41,197,246,0.12)" }}>
         
       {/* Logo */}

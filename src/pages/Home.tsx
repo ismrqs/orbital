@@ -16,13 +16,13 @@ function Home() {
         <section
           className=" flex-1 flex items-center min-h-[calc(100vh-3.5rem)] pl-24 max-[480px]:pl-0 max-[480px]:justify-center max-[480px]:text-center max-[480px]:py-12 max-[480px]:px-6 min-[481px]:max-[991px]:pl-0 min-[481px]:max-[991px]:justify-center min-[481px]:max-[991px]:text-center min-[481px]:max-[991px]:py-12 min-[481px]:max-[991px]:px-6 min-[992px]:min-h-[calc(100vh-6rem)]">
 
-          <div className="max-w-[32rem]">
+          <div className="max-w-[40rem]">
 
             {/* headline */}
             <h1 className="font-['Exo_2',sans-serif] font-bold leading-[1.05] mb-5 text-[3rem] max-[480px]:text-[2rem]min-[481px]:max-[991px]:text-[2.4rem]">
-              A órbita<br />
-              <span className="text-[#29c5f6]">está em risco.</span><br />
-              Nós monitoramos.
+              Transformando<br />
+              <span className="text-[#29c5f6]">dados orbitais</span><br />
+              em decisões estratégicas.
             </h1>
 
             {/* subtítulo */}
