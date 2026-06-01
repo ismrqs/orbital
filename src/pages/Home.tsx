@@ -2,10 +2,13 @@ import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import background from "../assets/background.jpg"
 
 function Home() {
   return (
-    <div className="font-['Roboto',sans-serif] text-white flex flex-col min-h-screen bg-[#06090f]">
+    <div className="font-['Roboto',sans-serif] text-white flex flex-col min-h-screen bg-[#06090f]" 
+    style={{ backgroundImage: `linear-gradient(rgba(6,9,15,0.75), rgba(6,9,15,0.85)), url(${background})`, backgroundSize: "cover", backgroundPosition: "center",}}>
+
       <Header/>
       <main className="flex-1 flex flex-col">
 
