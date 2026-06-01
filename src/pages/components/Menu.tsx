@@ -72,7 +72,7 @@ function Menu({ open }: MenuProps) {
               to="/auth/registro"
               className="flex items-center justify-center w-full bg-[#e84c1c] text-white py-3 rounded-lg font-semibold no-underline text-[1rem] font-['Exo_2',sans-serif]"
             >
-              Cadastrar
+              Cadastre-se
             </Link>
           </li>
 
