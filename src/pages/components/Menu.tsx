@@ -7,7 +7,7 @@ interface MenuProps {
 function Menu({ open }: MenuProps) {
 
   const desktopLink = ({ isActive }: { isActive: boolean }) =>
-    `text-[1rem] font-semibold whitespace-nowrap px-3 py-2 transition-all duration-200 no-underline border-b-2 ${
+    `text-[1rem] font-semibold whitespace-nowrap px-3 py-2 transition-all duration-200 no-underline border-b-2 font-['Exo_2',sans-serif] ${
       isActive
         ? "text-[#29c5f6] border-[#29c5f6]"
         : "text-white border-transparent hover:text-[#29c5f6] hover:border-[#29c5f6]"
@@ -26,11 +26,11 @@ function Menu({ open }: MenuProps) {
         </ul>
 
         <div className="flex items-center gap-3 ml-auto">
-          <Link to="/#"
-            className="text-white bg-[#29c5f6] px-5 py-2 rounded-[6px] text-[0.95rem] font-semibold no-underline transition-all duration-200 hover:bg-[#1fa8d4]"
+          <Link to="/"
+            className="text-white bg-[#29c5f6] px-5 py-2 rounded-[6px] text-[0.95rem] font-semibold no-underline transition-all duration-200 hover:bg-[#1fa8d4] font-['Exo_2',sans-serif]"
           > Entrar </Link>
-          <Link to="/#"
-            className="text-white bg-[#e84c1c] px-5 py-2 rounded-[6px] text-[0.95rem] font-semibold no-underline transition-all duration-200 hover:bg-[#c73d14]"
+          <Link to="/"
+            className="text-white bg-[#e84c1c] px-5 py-2 rounded-[6px] text-[0.95rem] font-semibold no-underline transition-all duration-200 hover:bg-[#c73d14] font-['Exo_2',sans-serif]"
           > Cadastrar </Link>
         </div>
       </nav>
@@ -47,7 +47,7 @@ function Menu({ open }: MenuProps) {
       >
 
         <div className="px-6 py-4 border-t border-[#ffffff10]">
-          <p className="text-[#ffffff40] text-xs text-right">
+          <p className="text-[#ffffff40] text-xs text-right font-['Exo_2',sans-serif]">
             ORBITAL — AETHER SYSTEMS
           </p>
         </div>
