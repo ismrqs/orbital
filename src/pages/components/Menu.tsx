@@ -25,7 +25,7 @@ function Menu({ open }: MenuProps) {
           <li><NavLink to="/" end className={desktopLink}>Home</NavLink></li>
           <li><NavLink to="/sobre" className={desktopLink}>Sobre</NavLink></li>
           <li><NavLink to="/faq" className={desktopLink}>FAQ</NavLink></li>
-          <li><NavLink to="/integrantes" className={desktopLink}>Integrantes</NavLink></li>
+          <li><NavLink to="/quemsomos" className={desktopLink}>Quem Somos</NavLink></li>
           <li><NavLink to="/contato" className={desktopLink}>Contato</NavLink></li>
         </ul>
 
@@ -58,7 +58,6 @@ function Menu({ open }: MenuProps) {
       >
         <ul className="flex flex-col list-none m-0 p-0">
 
-          {/* Botões no topo do drawer */}
           <li className="px-5 pt-5 pb-3">
             <Link
               to="/auth/login"
