@@ -13,9 +13,6 @@ function Sobre() {
         <section className="px-24 py-14 max-[480px]:px-6 max-[480px]:py-10 min-[481px]:max-[991px]:px-8 min-[481px]:max-[991px]:py-10"
           style={{ borderBottom: "1px solid rgba(41,197,246,0.1)" }}
         >
-          <span className="inline-flex items-center gap-2 mb-4 text-[0.72rem] font-['Exo_2',sans-serif] font-semibold tracking-[0.15em] uppercase px-4 py-1.5 rounded-full border border-[#29c5f6]/35 bg-[#29c5f6]/[0.07] text-[#29c5f6]">
-            Conheça o projeto
-          </span>
 
           <h1 className="font-['Exo_2',sans-serif] font-bold leading-tight text-[2.5rem] max-[480px]:text-[1.8rem] min-[481px]:max-[991px]:text-[2rem] mb-3">
             Sobre a <span className="text-[#29c5f6]">ORBITAL</span>
