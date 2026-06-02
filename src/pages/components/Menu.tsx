@@ -78,7 +78,7 @@ function Menu({ open }: MenuProps) {
           <li><NavLink to="/" end className={mobileLink}>Home</NavLink></li>
           <li><NavLink to="/sobre" className={mobileLink}>Sobre</NavLink></li>
           <li><NavLink to="/faq" className={mobileLink}>FAQ</NavLink></li>
-          <li><NavLink to="/integrantes" className={mobileLink}>Integrantes</NavLink></li>
+          <li><NavLink to="/quemsomos" className={mobileLink}>Quem Somos</NavLink></li>
           <li>
             <NavLink
               to="/contato"
