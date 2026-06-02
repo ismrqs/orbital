@@ -14,7 +14,7 @@ function Home() {
 
         {/* ── HERO ── */}
         <section
-          className=" flex-1 flex items-center min-h-[calc(100vh-3.5rem)] pl-24 max-[480px]:pl-0 max-[480px]:justify-center max-[480px]:text-center max-[480px]:py-12 max-[480px]:px-6 min-[481px]:max-[991px]:pl-0 min-[481px]:max-[991px]:justify-center min-[481px]:max-[991px]:text-center min-[481px]:max-[991px]:py-12 min-[481px]:max-[991px]:px-6 min-[992px]:min-h-[calc(100vh-6rem)]">
+          className="flex-1 flex items-center min-h-[calc(100vh-3.5rem)] pl-24 max-[480px]:pl-0 max-[480px]:justify-center max-[480px]:text-center max-[480px]:py-12 max-[480px]:px-6 min-[481px]:max-[991px]:pl-0 min-[481px]:max-[991px]:justify-center min-[481px]:max-[991px]:text-center min-[481px]:max-[991px]:py-12 min-[481px]:max-[991px]:px-6 min-[992px]:min-h-[calc(100vh-6rem)]">
 
           <div className="max-w-[40rem]">
 
