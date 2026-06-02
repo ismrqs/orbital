@@ -47,7 +47,7 @@ function FAQ() {
     <div className="font-['Roboto',sans-serif] text-white flex flex-col min-h-screen bg-[#06090f]">
       <Header/>
 
-      <main className="flex-1 pb-16">
+      <main className="flex-1 pb-12">
 
         {/* ── TÍTULO ── */}
         <section className="px-24 py-14 max-[480px]:px-6 max-[480px]:py-10 min-[481px]:max-[991px]:px-8 min-[481px]:max-[991px]:py-10"
@@ -63,48 +63,45 @@ function FAQ() {
         </section>
 
         {/* ── ACCORDION ── */}
-        <div className="max-w-[48rem] mx-auto mt-10 flex flex-col gap-3">
-          {faqs.map((faq, index) => {
-            const isOpen = openIndex === index;
-            return (
-              <div
-                key={index}
-                className={`rounded-xl overflow-hidden transition-all duration-200
-                  ${isOpen
-                    ? "shadow-[0_4px_24px_rgba(41,197,246,0.1)]" : "hover:shadow-[0_4px_14px_rgba(0,0,0,0.2)]"
-                  }`}
-                style={{ backgroundColor: isOpen ? "rgba(41,197,246,0.05)" : "rgba(255,255,255,0.03)", 
-                    border: isOpen
-                    ? "1px solid rgba(41,197,246,0.35)" : "1px solid rgba(255,255,255,0.08)", }}
-              >
-                <button onClick={() => toggle(index)}
-                  className="w-full bg-transparent border-none cursor-pointer text-left flex justify-between items-center gap-4 px-6 py-5 text-[0.95rem] md:text-[1rem] font-bold transition-colors duration-200 font-['Exo_2',sans-serif]"
-                  style={{ color: isOpen ? "#29c5f6" : "rgba(255,255,255,0.9)" }}
-                >
-                  <span>{faq.question}</span>
-                  <ChevronDown
-                    size={20}
-                    className={`flex-shrink-0 transition-transform duration-300 ${isOpen ? "rotate-180" : "rotate-0"}`}
-                    style={{ color: "#29c5f6" }}
-                  />
-                </button>
-
+        <section className="px-24 pt-10 max-[480px]:px-6 min-[481px]:max-[991px]:px-8">
+          <div className="max-w-[1100px] flex flex-col gap-3">
+            {faqs.map((faq, index) => {
+                const isOpen = openIndex === index;
+                return (
                 <div
-                  className={`overflow-hidden transition-all duration-[350ms] ease-in-out ${isOpen ? "max-h-[20rem]" : "max-h-0"}`}
+                    key={index}
+                    className={`rounded-xl overflow-hidden transition-all duration-200
+                    ${isOpen
+                        ? "shadow-[0_4px_24px_rgba(41,197,246,0.1)]" : "hover:shadow-[0_4px_14px_rgba(0,0,0,0.2)]"
+                    }`}
+                    style={{ backgroundColor: isOpen ? "rgba(41,197,246,0.05)" : "rgba(255,255,255,0.03)", 
+                        border: isOpen
+                        ? "1px solid rgba(41,197,246,0.35)" : "1px solid rgba(255,255,255,0.08)", }}
                 >
-                  <div className="px-6 pb-6">
-                    <p
-                      className="text-[0.95rem] leading-[1.8] pt-4 m-0 font-['Roboto',sans-serif]"
-                      style={{ color: "rgba(255,255,255,0.6)", borderTop: "1px solid rgba(41,197,246,0.12)", }}
-                    >
-                      {faq.answer}
-                    </p>
-                  </div>
+                    <button onClick={() => toggle(index)}
+                        className="w-full bg-transparent border-none cursor-pointer text-left flex justify-between items-center gap-4 px-6 py-5 text-[0.95rem] md:text-[1rem] font-bold transition-colors duration-200 font-['Exo_2',sans-serif]"
+                        style={{ color: isOpen ? "#29c5f6" : "rgba(255,255,255,0.9)" }}>
+                    <span>{faq.question}</span>
+                    <ChevronDown
+                        size={20}
+                        className={`flex-shrink-0 transition-transform duration-300 ${isOpen ? "rotate-180" : "rotate-0"}`}
+                        style={{ color: "#29c5f6" }}
+                    />
+                    </button>
+
+                    <div className={`overflow-hidden transition-all duration-[350ms] ease-in-out ${isOpen ? "max-h-[20rem]" : "max-h-0"}`}>
+                        <div className="px-6 pb-6">
+                            <p className="text-[0.95rem] leading-[1.8] pt-4 m-0 font-['Roboto',sans-serif]"
+                                style={{ color: "rgba(255,255,255,0.6)", borderTop: "1px solid rgba(41,197,246,0.12)", }}>
+                                {faq.answer}
+                            </p>
+                        </div>
+                    </div>
                 </div>
-              </div>
-            );
-          })}
-        </div>
+                );
+            })}
+          </div>
+        </section>
       </main>
 
       <div className="hidden min-[992px]:block">
