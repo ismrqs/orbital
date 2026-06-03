@@ -1,5 +1,6 @@
 import { useForm } from "react-hook-form";
 import { MapPin, Clock } from "lucide-react";
+import { postContato } from "../api/PostContato";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 
@@ -20,9 +21,9 @@ function Contato() {
   } = useForm<ContatoForm>();
 
   const onSubmit = async (data: ContatoForm) => {
-    console.log("Dados do formulário:", data);
+    await postContato(data);
     reset();
-  };
+  }; 
 
   const inputBase = `w-full px-4 py-[0.7rem] rounded-lg text-[0.95rem] font-['Roboto',sans-serif] outline-none transition-colors duration-200 bg-white/[0.04] text-white placeholder:text-white/30`;
 
