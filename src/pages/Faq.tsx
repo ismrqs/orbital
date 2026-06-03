@@ -49,7 +49,7 @@ function FAQ() {
           style={{ borderBottom: "1px solid rgba(41,197,246,0.1)" }}
         >
           <h1 className="font-['Exo_2',sans-serif] font-bold leading-tight mb-3 text-[2.5rem] max-[480px]:text-[1.8rem] min-[481px]:max-[991px]:text-[2rem]">
-            Perguntas <span className="text-[#29c5f6]">Frequentes</span>
+            Perguntas <span className="text-[#29c5f6]">frequentes</span>
           </h1>
           <p className="text-white/50 text-[0.95rem] max-w-[32rem]">
             Tudo o que você precisa saber sobre a plataforma ORBITAL e o problema que ela resolve.

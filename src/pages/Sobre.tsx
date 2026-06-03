@@ -144,8 +144,8 @@ function Sobre() {
               { nome: "TypeScript",    sub: "Tipagem estática",    icon: <Cpu size={20} />,        cor: "#29c5f6" },
               { nome: "Tailwind CSS",  sub: "Estilização",         icon: <Globe size={20} />,      cor: "#29c5f6" },
               { nome: "NASA API",      sub: "Dados orbitais",      icon: <Satellite size={20} />,  cor: "#29c5f6" },
-              { nome: "Java",          sub: "Back-end",             icon: <Cpu size={20} />,        cor: "#e84c1c" },
-              { nome: "Spring Boot",   sub: "API REST",            icon: <Activity size={20} />,   cor: "#e84c1c" },
+              { nome: "Java",          sub: "Back-end",            icon: <Cpu size={20} />,        cor: "#e84c1c" },
+              { nome: "Quarkus",       sub: "API REST",            icon: <Activity size={20} />,   cor: "#e84c1c" },
               { nome: "Oracle SQL",    sub: "Banco de dados",      icon: <Database size={20} />,   cor: "#e84c1c" },
               { nome: "Space-Track",   sub: "Rastreamento",        icon: <Navigation size={20} />, cor: "#e84c1c" },
             ].map((tech) => {

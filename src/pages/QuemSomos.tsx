@@ -65,7 +65,7 @@ function QuemSomos() {
             max-[480px]:text-[1.8rem]
             min-[481px]:max-[991px]:text-[2rem]
           ">
-            Nossos <span className="text-[#29c5f6]">Integrantes</span>
+            Nossos <span className="text-[#29c5f6]">integrantes</span>
           </h1>
           <p className="text-white/50 text-[0.95rem] max-w-[32rem]">
             Conheça os estudantes por trás da plataforma ORBITAL.
