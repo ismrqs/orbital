@@ -1,9 +1,10 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Home from "./pages/Home";
 import Sobre from "./pages/Sobre";
-import Faq from "./pages/Faq";
+import FAQ from "./pages/Faq";
 import Contato from "./pages/Contato";
 import QuemSomos from "./pages/QuemSomos";
+import Dashboard from "./pages/private/Dashboard";
 
 function App() {
   return (
@@ -12,9 +13,12 @@ function App() {
         {/* ── páginas públicas ── */}
         <Route path="/"            element={<Home />} />
         <Route path="/sobre"       element={<Sobre />} />
-        <Route path="/faq"         element={<Faq />} />
+        <Route path="/faq"         element={<FAQ />} />
         <Route path="/contato"     element={<Contato />} />
         <Route path="/quemsomos" element={<QuemSomos />} />
+
+        {/* páginas privadas */}
+        <Route path="/dashboard"     element={<Dashboard />} />
 
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
