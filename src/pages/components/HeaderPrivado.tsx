@@ -1,4 +1,4 @@
-import { NavLink, Link, useNavigate } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import { LayoutDashboard, Bell, Satellite, Settings } from "lucide-react"; // esses icons aparecem só no nav bottom
 
 const navItems = [
@@ -9,11 +9,6 @@ const navItems = [
 ];
 
 function HeaderPrivado() {
-  const navigate = useNavigate();
-
-  function handleLogout() {
-    navigate("/");
-  }
 
   const desktopLink = ({ isActive }: { isActive: boolean }) =>
     `flex items-center gap-2 font-['Exo_2',sans-serif] text-[1rem] font-semibold whitespace-nowrap px-3 py-2 no-underline border-b-2 transition-all duration-200 ${
@@ -53,17 +48,7 @@ function HeaderPrivado() {
             ))}
           </ul>
 
-          <div className="ml-auto">
-            <button
-              onClick={handleLogout}
-              className="font-['Exo_2',sans-serif] font-bold text-[0.9rem] py-2 px-6 rounded-full border transition-all duration-200 cursor-pointer bg-transparent"
-              style={{ color: "#e84c1c", borderColor: "rgba(232,76,28,0.4)" }}
-              onMouseEnter={e => ((e.currentTarget as HTMLButtonElement).style.backgroundColor = "rgba(232,76,28,0.1)")}
-              onMouseLeave={e => ((e.currentTarget as HTMLButtonElement).style.backgroundColor = "transparent")}
-            >
-              Sair
-            </button>
-          </div>
+
         </nav>
 
         {/* navegação apenas no canto inferior (nav bottom) para mobile */}

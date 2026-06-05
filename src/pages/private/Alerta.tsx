@@ -43,7 +43,7 @@ function Alerta() {
       .catch(() => [
         { id: 1, sateliteNome: "AMAZONIA-1",   norad: "47699", nivel: "CRITICO", descricao: "Objeto a 2.1 km em trajetória de colisão. Manobra de desvio recomendada imediatamente.", probabilidade: 78, distancia: "2.1 km",  tempo: "há 5 min" },
         { id: 2, sateliteNome: "BRASILSAT B4", norad: "28645", nivel: "ATENCAO", descricao: "Combustível abaixo de 40%. Planejar reabastecimento ou deorbitar.",                        probabilidade: 42, distancia: "18 km", tempo: "há 1h"   },
-        { id: 3, sateliteNome: "SGDC-1",       norad: "42833", nivel: "ATENCAO", descricao: "Debris detectado em órbita próxima. Monitoramento intensificado.",                         probabilidade: 21, distancia: "34 km", tempo: "há 3h"   },
+        { id: 3, sateliteNome: "SGDC-3",       norad: "42873", nivel: "ATENCAO", descricao: "Debris detectado em órbita próxima. Monitoramento intensificado.",                         probabilidade: 20, distancia: "31 km", tempo: "há 2h"   },
       ])
       .then(data => setAlertas(data))
       .finally(() => setLoading(false));
@@ -74,7 +74,7 @@ function Alerta() {
           <div className="flex items-center justify-between gap-4 flex-wrap">
             <div>
               <h1 className="font-['Exo_2',sans-serif] font-bold text-[2.5rem] max-[480px]:text-[1.8rem] mb-2">
-                Central de <span className="text-[#e84c1c]">Alertas</span>
+                Central de <span className="text-[#29c5f6]">Alertas</span>
               </h1>
               {/* se for 1 evento não coloca "s", se for mais coloca */}
               <p className="text-white/50 text-[0.95rem]">{alertas.length} evento{alertas.length !== 1 ? "s" : ""} registrado{alertas.length !== 1 ? "s" : ""}</p>
