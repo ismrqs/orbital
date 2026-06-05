@@ -179,7 +179,7 @@ function Dashboard() {
                   {/* navegação do carrossel */}
                   <div className="flex items-center justify-between">
 
-                    {/* bolinhas indicadoras (uma por satélite) — a atual fica maior e azul */}
+                    {/* bolinhas indicadoras (uma por satélite), a atual fica maior e azul */}
                     <div className="flex items-center gap-2">
                       {satelites.map((_, i) => (
                         <div key={i} onClick={() => setIdx(i)} className="cursor-pointer rounded-full transition-all duration-200"
@@ -231,7 +231,7 @@ function Dashboard() {
 
               {/* se não tiver alertas mostra estado vazio, senão lista os alertas */}
               {alertas.length === 0 ? (
-                // estado vazio — tela quando tá tudo bem, sem alertas
+                // estado vazio:  tela quando tá tudo bem, sem alertas
                 <div className="flex flex-col items-center justify-center gap-3 p-10 rounded-2xl"
                   style={{ backgroundColor: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)" }}>
                   <Activity size={28} style={{ color: "rgba(255,255,255,0.15)" }} />
@@ -285,7 +285,7 @@ function Dashboard() {
         )}
       </main>
 
-      {/* footer só aparece no desktop — no mobile fica escondido */}
+      {/* footer só aparece no desktop, no mobile fica escondido */}
       <div className="hidden min-[992px]:block"><Footer /></div>
     </div>
   );

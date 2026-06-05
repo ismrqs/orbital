@@ -5,6 +5,7 @@ import FAQ from "./pages/Faq";
 import Contato from "./pages/Contato";
 import QuemSomos from "./pages/QuemSomos";
 import Dashboard from "./pages/private/Dashboard";
+import Alertas from "./pages/private/Alerta";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
 
         {/* páginas privadas */}
         <Route path="/dashboard"     element={<Dashboard />} />
+        <Route path="/alertas"       element={<Alertas />} />
 
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
