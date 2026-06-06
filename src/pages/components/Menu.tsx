@@ -45,7 +45,7 @@ function Menu({ open }: MenuProps) {
         className={`
           [@media(min-width:992px)]:hidden
           absolute top-full left-0 right-0
-          w-full z-50
+          w-full z-200
           bg-[#06090f]
           border-t border-[#29c5f6]/30
           shadow-[0_8px_32px_rgba(0,0,0,0.5)]

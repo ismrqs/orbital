@@ -7,7 +7,7 @@ function Header() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="bg-[#06090f]/30 backdrop-blur-sm h-14 min-[992px]:h-24 flex items-center relative font-['Exo_2',sans-serif]"
+    <header className="bg-[#06090f]/30 backdrop-blur-sm h-14 min-[992px]:h-24 flex items-center relative z-100 font-['Exo_2',sans-serif]"
       style={{ borderBottom: "1px solid rgba(41,197,246,0.12)" }}>
         
       {/* Logo */}
@@ -39,7 +39,7 @@ function Header() {
 
       {/* Drawer mobile/tablet (até 991px) */}
       <div
-        className={`[@media(min-width:992px)]:hidden absolute top-full left-0 w-full z-50 transition-all duration-300
+        className={`[@media(min-width:992px)]:hidden absolute top-full left-0 w-full z-200 transition-all duration-300
           ${open
             ? "opacity-100 translate-y-0 pointer-events-auto"
             : "opacity-0 -translate-y-3 pointer-events-none"
