@@ -34,7 +34,7 @@ function Home() {
 
             {/* CTAs */}
             <div className=" flex items-center gap-4 flex-wrap max-[480px]:justify-center max-[480px]:flex-col max-[480px]:gap-3 min-[481px]:max-[991px]:justify-center">
-              <Link to="/" className="
+              <Link to="/login" className="
                   inline-flex items-center gap-2 font-['Exo_2',sans-serif] font-bold text-[0.95rem] bg-[#e84c1c] text-white py-[0.8rem] px-8 rounded-[2rem] no-underline border-none
                   hover:bg-[#c73d14] transition-colors duration-200 max-[480px]:text-[0.9rem] max-[480px]:py-[0.7rem] max-[480px]:px-6 max-[480px]:w-full max-[480px]:justify-center">
                 Acessar Dashboard
