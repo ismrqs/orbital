@@ -54,10 +54,9 @@ function Home() {
 
         {/* ── STATS ── */}
         <section className="px-24 py-8 border-t border-[#29c5f6]/10 max-[480px]:px-6 max-[480px]:py-8 min-[481px]:max-[991px]:px-8">
-            <div className="grid gap-6 grid-cols-3 max-[480px]:grid-cols-2 min-[481px]:max-[991px]:grid-cols-2 text-center">
+            <div className="grid gap-6 grid-cols-2 max-[480px]:grid-cols-2 min-[481px]:max-[991px]:grid-cols-2 text-center">
             {[
               { value: "27.000+", label: "objetos rastreados",        color: "#29c5f6" },
-              { value: "6.000+",  label: "satélites ativos SpaceX",   color: "#e84c1c" },
               { value: "100%",    label: "dados NASA & Space-Track",   color: "#29c5f6" },
             ].map((stat) => (
               <div key={stat.label}>
