@@ -30,10 +30,10 @@ function Menu({ open }: MenuProps) {
         </ul>
 
         <div className="flex items-center gap-3 ml-auto">
-          <Link to="/"
+          <Link to="/login"
             className="text-white bg-[#29c5f6] px-5 py-2 rounded-[6px] text-[0.95rem] font-semibold no-underline transition-all duration-200 hover:bg-[#1fa8d4] font-['Exo_2',sans-serif]"
           > Entrar </Link>
-          <Link to="/"
+          <Link to="/cadastro"
             className="text-white bg-[#e84c1c] px-5 py-2 rounded-[6px] text-[0.95rem] font-semibold no-underline transition-all duration-200 hover:bg-[#c73d14] font-['Exo_2',sans-serif]"
           > Cadastrar </Link>
         </div>
@@ -60,7 +60,7 @@ function Menu({ open }: MenuProps) {
 
           <li className="px-5 pt-5 pb-3">
             <Link
-              to="/auth/login"
+              to="/login"
               className="flex items-center justify-center w-full bg-[#29c5f6] text-[#06090f] py-3 rounded-lg font-semibold no-underline text-[1rem] font-['Exo_2',sans-serif]"
             >
               Entrar
@@ -68,7 +68,7 @@ function Menu({ open }: MenuProps) {
           </li>
           <li className="px-5 pb-5 border-b border-[#ffffff10]">
             <Link
-              to="/auth/registro"
+              to="/cadastro"
               className="flex items-center justify-center w-full bg-[#e84c1c] text-white py-3 rounded-lg font-semibold no-underline text-[1rem] font-['Exo_2',sans-serif]"
             >
               Cadastre-se
