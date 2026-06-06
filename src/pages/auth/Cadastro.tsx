@@ -13,8 +13,6 @@ interface CadastroForm {
   confirmaSenha: string;
 }
 
-const API_URL = import.meta.env.VITE_API_URL ?? "http://localhost:8080";
-
 const inputBase =
   "w-full px-4 py-[0.75rem] rounded-lg text-[0.95rem] font-['Roboto',sans-serif] outline-none transition-colors duration-200 bg-white/[0.04] text-white placeholder:text-white/25";
 
@@ -23,7 +21,6 @@ const inputBorder = (hasError: boolean) =>
     ? "border-[1.5px] border-[#e84c1c]"
     : "border-[1.5px] border-white/10 focus:border-[#29c5f6]";
 
-// ── Ícone com posição absoluta dentro do input ──────────
 function InputIcon({ icon }: { icon: React.ReactNode }) {
   return (
     <span
@@ -49,7 +46,7 @@ function Cadastro() {
   const senhaWatch = watch("senha") ?? "";
   const confirmaSenhaWatch = watch("confirmaSenha") ?? "";
 
-  // Regras visuais em tempo real (mesmo padrão das Configuracoes)
+  // validação de senha
   const regrasSenha = [
     { label: "Mínimo 6 caracteres", ok: senhaWatch.length >= 6 },
     { label: "Uma letra maiúscula", ok: /[A-Z]/.test(senhaWatch) },
@@ -58,7 +55,7 @@ function Cadastro() {
     { label: "Senhas coincidem",    ok: senhaWatch.length > 0 && senhaWatch === confirmaSenhaWatch },
   ];
 
-  // ── Integração futura com Quarkus ──────────────────────
+  // Integração futura com Quarkus
   // Quando o backend estiver pronto com CORS configurado,
   // descomente o bloco abaixo e remova o bloco de fallback:
   //
@@ -81,7 +78,6 @@ function Cadastro() {
   //   }
   // }
   //
-  // ── Sem banco por enquanto: simula sucesso ──
   async function onSubmit(_data: CadastroForm) {
     await new Promise((r) => setTimeout(r, 900));
     setTimeout(() => navigate("/login"), 1200);
@@ -121,7 +117,7 @@ function Cadastro() {
             }}
           >
             {isSubmitSuccessful ? (
-              /* ── Estado de sucesso ── */
+              /* Estado de sucesso */
               <div className="flex flex-col items-center gap-4 py-6 text-center">
                 <div
                   className="w-14 h-14 rounded-full flex items-center justify-center"
@@ -251,7 +247,7 @@ function Cadastro() {
                   )}
                 </div>
 
-                {/* Checklist de regras — aparece ao começar a digitar a senha */}
+                {/* Checklist de validação */}
                 {senhaWatch.length > 0 && (
                   <div
                     className="grid grid-cols-2 gap-x-4 gap-y-2 p-4 rounded-xl"
@@ -295,7 +291,6 @@ function Cadastro() {
                   </div>
                 )}
 
-                {/* Erro da API (ex: e-mail já cadastrado) */}
                 {erroCadastro && (
                   <p className="text-[#e84c1c] text-[0.82rem] font-['Roboto',sans-serif] flex items-center gap-1.5">
                     <span>⚠</span> {erroCadastro}
