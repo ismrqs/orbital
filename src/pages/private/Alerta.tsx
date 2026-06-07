@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { AlertTriangle, AlertOctagon, RefreshCw } from "lucide-react";
 import Header from "../components/HeaderPrivado";
 import Footer from "../components/Footer";
-import type { Alerta } from "../../types/AlertaType";
+import type { Alerta as AlertaItem } from "../../types/AlertaType";
 import { getAlertas } from "../../api/GetAlertas";
 
 // objeto de configuração visual por nível de alerta, centraliza cor, background, borda e ícone de cada tipo num lugar só
@@ -13,7 +13,7 @@ const nivelConfig = {
 
 // componente principal da página de alertas
 function Alerta() {
-  const [alertas, setAlertas] = useState<Alerta[]>([]);
+  const [alertas, setAlertas] = useState<AlertaItem[]>([]);
   const [loading, setLoading] = useState(true);
 
   // filtro ativo: começa mostrando todos, pode mudar pra CRITICO ou ATENCAO
