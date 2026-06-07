@@ -1,5 +1,6 @@
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import TitlePage from "./components/TitlePage";
 
 const integrantes = [
   {
@@ -51,26 +52,10 @@ function QuemSomos() {
       <main className="flex-1">
 
         {/* ── TÍTULO ── */}
-        <div
-          className="
-            px-24 py-14
-            max-[480px]:px-6 max-[480px]:py-10
-            min-[481px]:max-[991px]:px-8 min-[481px]:max-[991px]:py-10
-          "
-          style={{ borderBottom: "1px solid rgba(41,197,246,0.1)" }}
-        >
-          <h1 className="
-            font-['Exo_2',sans-serif] font-bold leading-tight mb-3
-            text-[2.5rem]
-            max-[480px]:text-[1.8rem]
-            min-[481px]:max-[991px]:text-[2rem]
-          ">
-            Nossos <span className="text-[#29c5f6]">integrantes</span>
-          </h1>
-          <p className="text-white/50 text-[0.95rem] max-w-[32rem]">
-            Conheça os estudantes por trás da plataforma ORBITAL.
-          </p>
-        </div>
+        <TitlePage
+          titulo="Nossos " tituloDestaque="integrantes"
+          subtitulo="Conheça os estudantes por trás da plataforma ORBITAL."
+        />
 
         {/* ── CARDS ── */}
         <div className="

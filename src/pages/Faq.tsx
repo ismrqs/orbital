@@ -2,6 +2,7 @@ import { useState } from "react";
 import { ChevronDown } from "lucide-react";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import TitlePage from "./components/TitlePage";
 
 const faqs = [
   {
@@ -44,17 +45,10 @@ function FAQ() {
       <main className="flex-1 pb-12">
 
         {/* ── TÍTULO ── */}
-        <section
-          className="px-24 py-14 max-[480px]:px-6 max-[480px]:py-10 min-[481px]:max-[991px]:px-8 min-[481px]:max-[991px]:py-10"
-          style={{ borderBottom: "1px solid rgba(41,197,246,0.1)" }}
-        >
-          <h1 className="font-['Exo_2',sans-serif] font-bold leading-tight mb-3 text-[2.5rem] max-[480px]:text-[1.8rem] min-[481px]:max-[991px]:text-[2rem]">
-            Perguntas <span className="text-[#29c5f6]">frequentes</span>
-          </h1>
-          <p className="text-white/50 text-[0.95rem] max-w-[32rem]">
-            Tudo o que você precisa saber sobre a plataforma ORBITAL e o problema que ela resolve.
-          </p>
-        </section>
+        <TitlePage
+          titulo="Perguntas " tituloDestaque="frequentes"
+          subtitulo="Tudo o que você precisa saber sobre a plataforma ORBITAL e o problema que ela resolve."
+        />
 
         {/* ── ACCORDION */}
         <section className="px-24 py-10 max-[480px]:px-6 max-[480px]:py-8 min-[481px]:max-[991px]:px-8">

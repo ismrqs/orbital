@@ -1,6 +1,7 @@
 import { Satellite, AlertTriangle, Navigation, Activity, Zap, Globe, Cpu, Database } from "lucide-react";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import TitlePage from "./components/TitlePage";
 
 function Sobre() {
   return (
@@ -10,19 +11,10 @@ function Sobre() {
       <main className="flex-1">
 
         {/* ── TÍTULO DA PÁGINA ── */}
-        <section className="px-24 py-14 max-[480px]:px-6 max-[480px]:py-10 min-[481px]:max-[991px]:px-8 min-[481px]:max-[991px]:py-10"
-          style={{ borderBottom: "1px solid rgba(41,197,246,0.1)" }}
-        >
-
-          <h1 className="font-['Exo_2',sans-serif] font-bold leading-tight text-[2.5rem] max-[480px]:text-[1.8rem] min-[481px]:max-[991px]:text-[2rem] mb-3">
-            Sobre a <span className="text-[#29c5f6]">ORBITAL</span>
-          </h1>
-
-          <p className="text-white/50 text-[1rem] max-w-[36rem] max-[480px]:text-[0.9rem]">
-            Uma plataforma de gestão de risco orbital desenvolvida por estudantes da FIAP,
-            criada para tornar operações espaciais mais seguras e rápidas.
-          </p>
-        </section>
+        <TitlePage
+          titulo="Sobre a " tituloDestaque="ORBITAL"
+          subtitulo="Uma plataforma de gestão de risco orbital desenvolvida por estudantes da FIAP, criada para tornar operações espaciais mais seguras e rápidas."
+        />
 
         {/* ── PROBLEMA ── */}
         <section className="px-24 py-14 max-[480px]:px-6 max-[480px]:py-10 min-[481px]:max-[991px]:px-8 min-[481px]:max-[991px]:py-10"
