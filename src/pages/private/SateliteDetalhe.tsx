@@ -4,38 +4,11 @@ import { useForm } from "react-hook-form";
 import { ArrowLeft, Settings, X, Check, AlertTriangle, AlertOctagon, Shield, RefreshCw, } from "lucide-react";
 import Header from "../components/HeaderPrivado";
 import Footer from "../components/Footer";
+import type { Satelite, EditForm, Manobra } from "../../types/Satelite";
+import { getSatelite, putSatelite, postManobra } from "../../api/SateliteService";
 
-// tipos
-interface Satelite {
-  id: number;
-  nome: string;
-  noradId: string;
-  cosparId: string;
-  orbita: string;
-  altitude: number;
-  combustivel: number;
-  inclinacao: number;
-  proximaJanela: string;
-  probColisao: number;
-  deltaV: number | null;
-  statusRisco: "ok" | "warn" | "danger";
-}
 
-interface Manobra {
-  janelaExecucao: string;
-  deltaV: number;
-  objetoRisco: string;
-  descricao: string;
-}
-
-interface EditForm {
-  nome: string;
-  cosparId: string;
-  orbita: string;
-  altitude: number;
-}
-
-const API_URL = import.meta.env.VITE_API_URL ?? "http://localhost:8080";
+const API_URL = import.meta.env.VITE_API_URL ?? "https://orbital-java.onrender.com";
 
 const FALLBACK: Record<string, Satelite> = {
   "47699": {
@@ -486,44 +459,27 @@ function SateliteDetalhe() {
     if (!satelite) return;
     setCalculando(true);
     try {
-      const res = await fetch(`${API_URL}/manobra`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ noradId: satelite.noradId }),
-      });
-      if (!res.ok) throw new Error("api error");
-      const data = await res.json();
+      const data = await postManobra(satelite.noradId);
       setManobra(data);
     } catch {
-      // Fallback: manobra simulada para não quebrar a demo
       setManobra({
         janelaExecucao: "+4h 12min",
         deltaV: satelite.deltaV ?? 1.2,
         objetoRisco: `DEBRIS-${Math.floor(Math.random() * 90000 + 10000)}`,
-        descricao:
-          "Manobra de desvio calculada pelo modelo de regressão. Execute dentro da janela indicada para garantir segurança orbital.",
+        descricao: "Manobra de desvio calculada. Execute dentro da janela indicada para garantir segurança orbital.",
       });
     }
     setCalculando(false);
   }
 
-  // PUT /satelites/:noradId
-  // Quarkus: recebe EditForm → atualiza banco → retorna Satelite atualizado
   async function handleEditar(data: EditForm) {
     if (!satelite) return;
     try {
-      const res = await fetch(`${API_URL}/satelites/${satelite.noradId}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      });
-      if (!res.ok) throw new Error("api error");
-      const atualizado = await res.json();
-      setSatelite((s) => (s ? { ...s, ...atualizado } : s));
+      await putSatelite(satelite.noradId, data);
     } catch {
-      // Fallback: aplica as alterações localmente
-      setSatelite((s) => (s ? { ...s, ...data } : s));
+      // fallback: aplica localmente se API indisponível
     }
+    setSatelite((s) => (s ? { ...s, ...data } : s));
     setEditando(false);
     setFeedback("Satélite atualizado!");
     setTimeout(() => setFeedback(""), 3000);
