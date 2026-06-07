@@ -2,22 +2,8 @@ import { useState, useEffect } from "react";
 import { AlertTriangle, AlertOctagon, RefreshCw } from "lucide-react";
 import Header from "../components/HeaderPrivado";
 import Footer from "../components/Footer";
-
-// tipagem de um alerta
-// tem mais campos que o do dashboard (probabilidade e distancia) pq aqui é a página de detalhes
-interface Alerta {
-  id: number;
-  sateliteNome: string;
-  norad: string;           // código de rastreio do satélite
-  nivel: "CRITICO" | "ATENCAO"; // só aceita esses dois
-  descricao: string;
-  probabilidade: number;   // % de chance do evento acontecer
-  distancia: string;       // distância do objeto ameaçador
-  tempo: string;           // quando o alerta foi gerado
-}
-
-// se não tiver a api configurada, cai pro localhost na porta 8080 (ambiente local de dev)
-const API_URL = import.meta.env.VITE_API_URL ?? "http://localhost:8080";
+import type { Alerta as AlertaItem } from "../../types/AlertaType";
+import { getAlertas } from "../../api/GetAlertas";
 
 // objeto de configuração visual por nível de alerta, centraliza cor, background, borda e ícone de cada tipo num lugar só
 const nivelConfig = {
@@ -27,7 +13,7 @@ const nivelConfig = {
 
 // componente principal da página de alertas
 function Alerta() {
-  const [alertas, setAlertas] = useState<Alerta[]>([]);
+  const [alertas, setAlertas] = useState<AlertaItem[]>([]);
   const [loading, setLoading] = useState(true);
 
   // filtro ativo: começa mostrando todos, pode mudar pra CRITICO ou ATENCAO
@@ -37,15 +23,13 @@ function Alerta() {
   // foi extraída do useEffect pra poder ser chamada também pelo botão "Atualizar"
   function carregar() {
     setLoading(true);
-    fetch(`${API_URL}/alertas`)
-      .then(r => r.json())
-      // fallback se a API cair — dados falsos pra não mostrar tela vazia
-      .catch(() => [
+    getAlertas()
+      .then(data => setAlertas(data))
+      .catch(() => setAlertas([
         { id: 1, sateliteNome: "AMAZONIA-1",   norad: "47699", nivel: "CRITICO", descricao: "Objeto a 2.1 km em trajetória de colisão. Manobra de desvio recomendada imediatamente.", probabilidade: 78, distancia: "2.1 km",  tempo: "há 5 min" },
         { id: 2, sateliteNome: "BRASILSAT B4", norad: "28645", nivel: "ATENCAO", descricao: "Combustível abaixo de 40%. Planejar reabastecimento ou deorbitar.",                        probabilidade: 42, distancia: "18 km", tempo: "há 1h"   },
         { id: 3, sateliteNome: "SGDC-3",       norad: "42873", nivel: "ATENCAO", descricao: "Debris detectado em órbita próxima. Monitoramento intensificado.",                         probabilidade: 20, distancia: "31 km", tempo: "há 2h"   },
-      ])
-      .then(data => setAlertas(data))
+      ]))
       .finally(() => setLoading(false));
   }
 
