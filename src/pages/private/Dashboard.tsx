@@ -4,31 +4,8 @@ import { Link } from "react-router-dom";
 
 import Header from "../components/HeaderPrivado";
 import Footer from "../components/Footer";
-
-// define como um satélite tem que ser, quais campos ele tem e o tipo de cada um
-// se vier dado errado da API o typescript já briga
-interface Satelite {
-  id: number;
-  nome: string;
-  norad: string; // código internacional de rastreio do satélite
-  orbita: string; // LEO (baixa) ou GEO (geoestacionária)
-  altitude: number; // altura em km
-  combustivel: number; // porcentagem de combustível restante
-  riscoColisao: number; // porcentagem 
-  status: "CRITICO" | "ATENCAO" | "NORMAL" | "OFFLINE";
-}
-
-// tipagem do alerta
-interface Alerta {
-  id: number;
-  sateliteNome: string; // qual satélite gerou o alerta
-  nivel: "CRITICO" | "ATENCAO";
-  descricao: string; // o que tá acontecendo
-  tempo: string;
-}
-
-// se não tiver a api configurada, cai pro localhost na porta 8080 (ambiente local de dev)
-const API_URL = import.meta.env.VITE_API_URL ?? "http://localhost:8080";
+import type { DashSatelite as Satelite, DashAlerta as Alerta } from "../../types/DashboardTypes";
+import { getDashSatelites, getDashAlertas } from "../../api/GetDashboard";
 
 // mapa de cores por status, cada status tem uma cor fixa
 const statusColor: Record<Satelite["status"], string> = {
@@ -61,25 +38,20 @@ function Dashboard() {
   // busca os dados de satélites e alertas ao mesmo tempo (promise.all)
   useEffect(() => {
     Promise.all([
-      // busca os satélites na API
-      // .catch() = se a API falhar, usa esses dados como fallback (pra não quebrar a tela)
-      fetch(`${API_URL}/satelites`).then(r => r.json()).catch(() => [
-        { id: 1, nome: "AMAZONIA-1",   norad: "47699", orbita: "LEO", altitude: 752,   combustivel: 34, riscoColisao: 78, status: "CRITICO" },
-        { id: 2, nome: "BRASILSAT B4", norad: "28645", orbita: "GEO", altitude: 35786, combustivel: 61, riscoColisao: 12, status: "ATENCAO" },
-        { id: 3, nome: "SGDC-1",       norad: "42833", orbita: "GEO", altitude: 35786, combustivel: 88, riscoColisao: 4,  status: "NORMAL"  },
+      getDashSatelites().catch(() => [
+        { id: 1, nome: "AMAZONIA-1",   norad: "47699", orbita: "LEO", altitude: 752,   combustivel: 34, riscoColisao: 78, status: "CRITICO" as const },
+        { id: 2, nome: "BRASILSAT B4", norad: "28645", orbita: "GEO", altitude: 35786, combustivel: 61, riscoColisao: 12, status: "ATENCAO" as const },
+        { id: 3, nome: "SGDC-1",       norad: "42833", orbita: "GEO", altitude: 35786, combustivel: 88, riscoColisao: 4,  status: "NORMAL"  as const },
       ]),
-
-      // mesma coisa pros alertas
-      fetch(`${API_URL}/alertas`).then(r => r.json()).catch(() => [
-        { id: 1, sateliteNome: "AMAZONIA-1",   nivel: "CRITICO", descricao: "Risco de colisão 78% — objeto a 2.1 km", tempo: "há 5 min" },
-        { id: 2, sateliteNome: "BRASILSAT B4", nivel: "ATENCAO", descricao: "Combustível abaixo de 40%",               tempo: "há 1h" },
+      getDashAlertas().catch(() => [
+        { id: 1, sateliteNome: "AMAZONIA-1",   nivel: "CRITICO" as const, descricao: "Risco de colisão 78% — objeto a 2.1 km", tempo: "há 5 min" },
+        { id: 2, sateliteNome: "BRASILSAT B4", nivel: "ATENCAO" as const, descricao: "Combustível abaixo de 40%",               tempo: "há 1h" },
       ]),
     ]).then(([sats, alts]) => {
-      // quando as duas requisições terminarem, salva os dados nos states
       setSatelites(sats);
       setAlertas(alts);
-    }).finally(() => setLoading(false)); // seja lá o que aconteceu, para o loading
-  }, []); // array vazio = só roda uma vez
+    }).finally(() => setLoading(false));
+  }, []);
 
   // satélite atual do carrossel (pelo índice)
   const sat = satelites[idx];
