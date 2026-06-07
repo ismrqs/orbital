@@ -224,7 +224,18 @@ function FrotaLista() {
           orbita: "SSO", altitude: 628,   probColisao: 8,  statusRisco: "ok",
         },
       ])
-      .then((data) => setSatelites(data))
+      .then((data) => setSatelites(
+        data.map((s: any) => ({
+          id:          s.id,
+          nome:        s.nomeSatelite ?? s.nome ?? "",
+          noradId:     s.noradId,
+          cosparId:    s.cosparId,
+          orbita:      s.orbita,
+          altitude:    s.altitude,
+          probColisao: s.probColisao ?? 0,
+          statusRisco: s.statusRisco ?? "ok",
+        }))
+      ))
       .finally(() => setLoading(false));
   }, []);
 

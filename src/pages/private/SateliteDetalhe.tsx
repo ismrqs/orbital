@@ -5,10 +5,8 @@ import { ArrowLeft, Settings, X, Check, AlertTriangle, AlertOctagon, Shield, Ref
 import Header from "../components/HeaderPrivado";
 import Footer from "../components/Footer";
 import type { Satelite, EditForm, Manobra } from "../../types/Satelite";
-import { putSatelite, postManobra } from "../../api/SateliteService";
+import { getSatelite, putSatelite, postManobra } from "../../api/SateliteService";
 
-
-const API_URL = import.meta.env.VITE_API_URL ?? "https://orbital-java.onrender.com";
 
 const FALLBACK: Record<string, Satelite> = {
   "47699": {
@@ -416,27 +414,13 @@ function SateliteDetalhe() {
   const [editando, setEditando]   = useState(false);
   const [feedback, setFeedback]   = useState("");
 
-  // UC04/UC05 — GET /satelites/:noradId
-  // Quarkus: retorna Satelite com statusRisco calculado pelo modelo Python de classificação
   function carregar() {
     setLoading(true);
-    fetch(`${API_URL}/satelites/${id}`)
-      .then((r) => {
-        if (!r.ok) throw new Error("not found");
-        return r.json();
-      })
-      .catch(() => {
-        // fallback correto: usa o NORAD ID da URL para retornar o satélite certo
-        if (id && FALLBACK[id]) return FALLBACK[id];
-        // satélite recém-cadastrado sem API: cria objeto mínimo com statusRisco "ok"
-        return {
-          id: Date.now(), nome: `Satélite ${id}`, noradId: id ?? "00000",
-          cosparId: "—", orbita: "LEO", altitude: 500,
-          combustivel: 100, inclinacao: 0,
-          proximaJanela: "—", probColisao: 0, deltaV: null, statusRisco: "ok",
-        } as Satelite;
-      })
+    getSatelite(id!)
       .then((data) => setSatelite(data))
+      .catch(() => {
+        if (id && FALLBACK[id]) setSatelite(FALLBACK[id]);
+      })
       .finally(() => setLoading(false));
   }
 
