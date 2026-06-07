@@ -5,7 +5,9 @@ import { ArrowLeft, Settings, X, Check, AlertTriangle, AlertOctagon, Shield, Ref
 import Header from "../components/HeaderPrivado";
 import Footer from "../components/Footer";
 import type { Satelite, EditForm, Manobra } from "../../types/Satelite";
-import { getSatelite, putSatelite, postManobra } from "../../api/SateliteService";
+import { getSatelite } from "../../api/GetSatelite";
+import { putSatelite } from "../../api/PutSatelite";
+import { postManobra } from "../../api/PostManobra";
 
 
 const FALLBACK: Record<string, Satelite> = {
