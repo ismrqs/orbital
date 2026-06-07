@@ -5,7 +5,7 @@ import { ArrowLeft, Settings, X, Check, AlertTriangle, AlertOctagon, Shield, Ref
 import Header from "../components/HeaderPrivado";
 import Footer from "../components/Footer";
 import type { Satelite, EditForm, Manobra } from "../../types/Satelite";
-import { getSatelite, putSatelite, postManobra } from "../../api/SateliteService";
+import { putSatelite, postManobra } from "../../api/SateliteService";
 
 
 const API_URL = import.meta.env.VITE_API_URL ?? "https://orbital-java.onrender.com";

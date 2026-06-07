@@ -25,7 +25,7 @@ interface NovoSateliteForm {
   altitude: number;
 }
 
-const API_URL = import.meta.env.VITE_API_URL ?? "http://localhost:8080";
+const API_URL = import.meta.env.VITE_API_URL ?? "https://orbital-java.onrender.com";
 
 const riscoCfg = {
   ok:     { color: "#22c55e", label: "Normal"  },
@@ -234,10 +234,29 @@ function FrotaLista() {
       const res = await fetch(`${API_URL}/satelites`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
+        body: JSON.stringify({
+          nomeSatelite: data.nome,
+          noradId:      data.noradId,
+          cosparId:     data.cosparId,
+          orbita:       data.orbita,
+          altitude:     data.altitude,
+          combustivel:  100,
+          inclinacao:   0,
+          deltaV:       0,
+        }),
       });
       if (!res.ok) throw new Error("api error");
-      const novo: Satelite = await res.json();
+      const api = await res.json();
+      const novo: Satelite = {
+        id:          api.id,
+        nome:        api.nomeSatelite,
+        noradId:     api.noradId,
+        cosparId:    api.cosparId,
+        orbita:      api.orbita,
+        altitude:    api.altitude,
+        probColisao: api.probColisao ?? 0,
+        statusRisco: api.statusRisco ?? "ok",
+      };
       setSatelites((prev) => [...prev, novo]);
     } catch {
       const novoLocal: Satelite = {
