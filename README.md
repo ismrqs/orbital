@@ -75,7 +75,7 @@ A aplicação estará disponível em `http://localhost:5173`
 |---|---|
 | 📂 Repositório GitHub | [github.com/ismrqs/orbital](https://github.com/ismrqs/orbital) |
 | 🎥 Vídeo no YouTube |  _Em breve_ |
-| ☁️ Deploy na Vercel | https://orbital-vert.vercel.app |
+| ☁️ Deploy na Vercel | [https://orbital-vert.vercel.app](orbital-vert.vercel.app) |
 
 ---
 
