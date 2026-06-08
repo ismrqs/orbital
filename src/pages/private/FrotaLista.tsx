@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { Plus, Check, ChevronRight } from "lucide-react";
-import { inputBaseModal, inputBorderModal } from "../utils/inputStyles";
+import { inputBaseModal, inputBorderModal } from "../utils/inputStyle";
 import Header from "../components/HeaderPrivado";
 import Footer from "../components/Footer";
 import TitlePage from "../components/TitlePage";

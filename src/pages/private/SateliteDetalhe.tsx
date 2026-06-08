@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { ArrowLeft, Settings, Check, AlertTriangle, AlertOctagon, Shield, RefreshCw, } from "lucide-react";
-import { inputBaseModal, inputBorderModal } from "../utils/inputStyles";
+import { inputBaseModal, inputBorderModal } from "../utils/inputStyle";
 import type { Satelite, EditForm, Manobra } from "../../types/Satelite";
 import { getSatelite } from "../../api/GetSatelite";
 import { putSatelite } from "../../api/PutSatelite";
