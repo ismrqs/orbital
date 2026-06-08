@@ -13,6 +13,11 @@
 
 ## 📋 Descrição
 
+A **Orbital** é uma plataforma web de gestão de risco orbital desenvolvida como projeto acadêmico da Global Solution 2026 na FIAP. A aplicação permite que operadores de satélites monitorem sua frota em tempo real, visualizem alertas de colisão, calculem manobras de desvio e acompanhem o status de cada satélite com base em dados orbitais.
+
+O sistema classifica automaticamente o nível de risco de cada satélite em três categorias, **Normal**, **Atenção** e **Crítico**, utilizando cálculos baseados em altitude, tipo de órbita e inclinação orbital. Para satélites em risco, a plataforma calcula a manobra de desvio necessária, indicando o delta-V mínimo em m/s e a janela de tempo para execução.
+
+O front-end em React consome uma API REST desenvolvida em Java com Quarkus, que por sua vez executa os modelos de classificação de risco e cálculo de manobra internamente.
 
 ---
 
@@ -34,6 +39,71 @@
 ---
 
 ## 📁 Estrutura de pastas
+
+```
+orbital/
+├── public/
+│   ├── favicon.svg
+│   └── icons.svg
+│
+└── src/
+    ├── api/                          # Funções de chamada à API Quarkus
+    │   ├── GetAlertas.ts
+    │   ├── GetDashboard.ts           # GET /satelites e /alertas (dashboard)
+    │   ├── GetSatelite.ts            # GET /satelites/:noradId
+    │   ├── PostCadastro.ts
+    │   ├── PostContato.ts
+    │   ├── PostManobra.ts
+    │   └── PutSatelite.ts            # PUT /satelites/:noradId
+    │
+    ├── assets/
+    │   ├── background.jpg
+    │   └── logo.png
+    │
+    ├── pages/
+    │   ├── auth/                     # Páginas de autenticação (públicas)
+    │   │   ├── Login.tsx
+    │   │   └── Cadastro.tsx
+    │   │
+    │   ├── components/               # Componentes reutilizáveis
+    │   │   ├── Badge.tsx
+    │   │   ├── Footer.tsx
+    │   │   ├── Header.tsx
+    │   │   ├── HeaderPrivado.tsx     # Header das páginas autenticadas
+    │   │   ├── InputField.tsx        # Campo de formulário com label e erro
+    │   │   ├── Menu.tsx
+    │   │   ├── ModalWrapper.tsx      # Wrapper padrão de modais
+    │   │   ├── StatBox.tsx           # Métrica com label e valor colorido
+    │   │   └── TitlePage.tsx
+    │   │
+    │   ├── private/                  # Páginas protegidas (requerem login)
+    │   │   ├── Alerta.tsx
+    │   │   ├── Configuracoes.tsx
+    │   │   ├── Dashboard.tsx
+    │   │   ├── FrotaLista.tsx
+    │   │   └── SateliteDetalhe.tsx
+    │   │
+    │   ├── utils/
+    │   │   └── inputStyle.tsx        # Estilos base de inputs compartilhados
+    │   │
+    │   ├── Contato.tsx
+    │   ├── Faq.tsx
+    │   ├── Home.tsx
+    │   ├── QuemSomos.tsx
+    │   └── Sobre.tsx
+    │
+    ├── types/                        # Interfaces TypeScript
+    │   ├── AlertaType.ts
+    │   ├── ContatoForm.ts
+    │   ├── DashboardTypes.ts
+    │   ├── Satelite.ts
+    │   └── UsuarioType.ts
+    │
+    ├── App.tsx                       # Rotas e proteção de páginas privadas
+    ├── App.css
+    ├── index.css
+    └── main.tsx
+```
 
 ---
 
@@ -64,17 +134,14 @@ npm run dev
 A aplicação estará disponível em `http://localhost:5173`
 
 ### Script
-
-| Comando | Descrição |
-|---|---|
-| `npm run dev` | Inicia o servidor de desenvolvimento |
+`npm run dev` = Inicia o servidor de desenvolvimento
 
 ### 🔗 Links do projeto
 
 | Recurso | Link |
 |---|---|
 | 📂 Repositório GitHub | [github.com/ismrqs/orbital](https://github.com/ismrqs/orbital) |
-| 🎥 Vídeo no YouTube |  _Em breve_ |
+| 🎥 Vídeo no YouTube | _Em breve_ |
 | ☁️ Deploy na Vercel | https://orbital-vert.vercel.app/ |
 
 ---
@@ -145,7 +212,5 @@ Tem dúvidas, sugestões ou quer saber mais sobre o projeto?
 <div align="center">
 
 Desenvolvido com 💙 pela equipe Orbital — FIAP Global Solution - 2° semestre em ADS
-
-</div>o com 💙 pela equipe Orbital — FIAP Global Solution - 2° semestre em ADS
 
 </div>

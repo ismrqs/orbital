@@ -15,13 +15,6 @@ import Configuracoes from "./pages/private/Configuracoes";
 import FrotaLista   from "./pages/private/FrotaLista";
 import SateliteDetalhe from "./pages/private/SateliteDetalhe";
 
-// Guarda de rota
-// Verifica autenticação antes de renderizar páginas privadas.
-// Atualmente usa sessionStorage("logado") como flag temporário.
-//
-// Quando a API Quarkus estiver integrada, troque para:
-//   const token = localStorage.getItem("token");
-//   return token ? <>{children}</> : <Navigate to="/login" replace />;
 function RotaPrivada({ children }: { children: React.ReactNode }) {
   const logado =
     sessionStorage.getItem("logado") === "true" ||
