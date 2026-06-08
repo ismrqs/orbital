@@ -1,4 +1,4 @@
-import { inputBase, inputBaseModal, inputBorder, inputBorderModal } from "../utils/inputStyles";
+import { inputBase, inputBaseModal, inputBorder, inputBorderModal } from "../utils/inputStyle";
 
 interface InputFieldProps extends React.InputHTMLAttributes<HTMLInputElement | HTMLTextAreaElement> {
   label: string;
