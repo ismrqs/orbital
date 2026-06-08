@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { Lock, Mail, ArrowRight } from "lucide-react";
@@ -10,13 +9,13 @@ interface LoginForm { email: string; senha: string; }
 
 function Login() {
   const navigate = useNavigate();
-  const [erroLogin, setErroLogin] = useState("");
+  const erroLogin = "";
   const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<LoginForm>();
 
   async function onSubmit(data: LoginForm) {
     await new Promise(r => setTimeout(r, 800));
     sessionStorage.setItem("logado", "true");
-    // salva o e-mail usado no login para exibir nas configurações
+    // salva o e-mail usado no login para exibir nas Configurações
     sessionStorage.setItem("userEmail", data.email);
     navigate("/dashboard");
   }
