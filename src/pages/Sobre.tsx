@@ -2,6 +2,9 @@ import { Satellite, AlertTriangle, Navigation, Activity, Zap, Globe, Cpu, Databa
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import TitlePage from "./components/TitlePage";
+import crono1 from "../assets/crono1.png"
+import crono2 from "../assets/crono2.png"
+import crono3 from "../assets/crono3.png"
 
 function Sobre() {
   return (
@@ -167,35 +170,29 @@ function Sobre() {
         </section>
 
         {/* ── CRONOGRAMA ── */}
-        <section className="px-24 py-14 max-[480px]:px-6 max-[480px]:py-10 min-[481px]:max-[991px]:px-8 min-[481px]:max-[991px]:py-10"
-          style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}
-        >
-          <p className="font-['Exo_2',sans-serif] font-bold mb-8 text-[1.375rem] min-[992px]:text-[1.75rem]">
-            Nosso cronograma
-          </p>
+      <section className="px-24 py-14 max-[480px]:px-6 max-[480px]:py-10 min-[481px]:max-[991px]:px-8 min-[481px]:max-[991px]:py-10"
+        style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}
+      >
+        <p className="font-['Exo_2',sans-serif] font-bold mb-8 text-[1.375rem] min-[992px]:text-[1.75rem]">
+          Nosso cronograma
+        </p>
 
+        <div className="grid grid-cols-3 gap-6 px-8 max-[480px]:grid-cols-1 max-[480px]:px-0 min-[481px]:max-[991px]:grid-cols-2">
           {[
-            { src: "", alt: "Cronograma fase 1" },
-            { src: "", alt: "Cronograma fase 2" },
-          ].map((img, i) =>
-            img.src ? (
-              <img
-                key={i}
-                src={img.src}
-                alt={img.alt}
-                className="max-w-[43.75rem] w-full h-auto block mx-auto my-5 rounded-xl opacity-90"
-                style={{ border: "1px solid rgba(41,197,246,0.12)" }}
-              />
-            ) : (
-              <div
-                key={i}
-                className="max-w-[43.75rem] w-full mx-auto my-5 rounded-xl flex items-center justify-center h-40"
-                style={{ border: "1px dashed rgba(41,197,246,0.2)", backgroundColor: "rgba(41,197,246,0.03)" }}
-              >
-              </div>
-            )
-          )}
-        </section>
+            { src: crono1, alt: "Cronograma Business e IA" },
+            { src: crono2, alt: "Cronograma Front-end e Banco de dados" },
+            { src: crono3, alt: "Cronograma Python e Java" },
+          ].map((img, i) => (
+            <img
+              key={i}
+              src={img.src}
+              alt={img.alt}
+              className="w-full h-auto rounded-xl opacity-90 object-contain"
+              style={{ border: "1px solid rgba(41,197,246,0.12)" }}
+            />
+          ))}
+        </div>
+      </section>
 
         <br />
       </main>

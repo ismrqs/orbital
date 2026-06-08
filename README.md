@@ -54,6 +54,9 @@ orbital/
     │
     ├── assets/
     │   ├── background.jpg
+    │   ├── crono1.png
+    │   ├── crono2.png
+    │   ├── crono3.png
     │   └── logo.png
     │
     ├── pages/
