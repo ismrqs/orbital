@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
 import { ArrowRight, Satellite, AlertTriangle, Activity, ChevronLeft, ChevronRight } from "lucide-react";
 import { Link } from "react-router-dom";
-
-import Header from "../components/HeaderPrivado";
-import Footer from "../components/Footer";
 import type { DashSatelite as Satelite, DashAlerta as Alerta } from "../../types/DashboardTypes";
 import { getDashSatelites, getDashAlertas } from "../../api/GetDashboard";
+import Header from "../components/HeaderPrivado";
+import Footer from "../components/Footer";
+import TitlePage from "../components/TitlePage";
+import Badge from "../components/Badge";
+import StatBox from "../components/StatBox";
 
 // mapa de cores por status, cada status tem uma cor fixa
 const statusColor: Record<Satelite["status"], string> = {
@@ -13,14 +15,6 @@ const statusColor: Record<Satelite["status"], string> = {
   ATENCAO: "#f0a030", 
   NORMAL: "#22c55e", 
   OFFLINE: "#4a5565",
-};
-
-// mesmo esquema mas pra label que aparece na tela
-const statusLabel: Record<Satelite["status"], string> = {
-  CRITICO: "Crítico", 
-  ATENCAO: "Atenção", 
-  NORMAL: "Normal", 
-  OFFLINE: "Offline",
 };
 
 // componente principal do dashboard
@@ -48,10 +42,11 @@ function Dashboard() {
         { id: 2, sateliteNome: "BRASILSAT B4", nivel: "ATENCAO" as const, descricao: "Combustível abaixo de 40%",               tempo: "há 1h" },
       ]),
     ]).then(([sats, alts]) => {
+      // quando as duas requisições terminarem, salva os dados nos states
       setSatelites(sats);
       setAlertas(alts);
-    }).finally(() => setLoading(false));
-  }, []);
+    }).finally(() => setLoading(false)); // seja lá o que aconteceu, para o loading
+  }, []); // array vazio = só roda uma vez
 
   // satélite atual do carrossel (pelo índice)
   const sat = satelites[idx];
@@ -68,15 +63,10 @@ function Dashboard() {
       <main className="flex-1 pb-20 min-[992px]:pb-0">
 
         {/* seção do título do dashboard */}
-        <section className="px-24 py-14 max-[480px]:px-6 max-[480px]:py-10 min-[481px]:max-[991px]:px-8 min-[481px]:max-[991px]:py-10"
-          style={{ borderBottom: "1px solid rgba(41,197,246,0.1)" }}>
-
-          {/* título grande com a parte "board" em azul */}
-          <h1 className="font-['Exo_2',sans-serif] font-bold text-[2.5rem] max-[480px]:text-[1.8rem] mb-2">
-            Dash<span className="text-[#29c5f6]">board</span>
-          </h1>
-          <p className="text-white/50 text-[0.95rem]">Visão geral da sua frota em tempo real.</p>
-        </section>
+        <TitlePage
+          titulo="Dash" tituloDestaque="board"
+          subtitulo="Visão geral da sua frota em tempo real."
+        />
 
         {/* se ainda tá carregando mostra mensagem, senão mostra o conteúdo */}
         {loading ? (
@@ -93,18 +83,16 @@ function Dashboard() {
 
               {/* cards de resumo rápido: total, críticos, atenção, normais */}
               {/* .filter() conta quantos satélites têm cada status */}
+              {/* usa StatBox com size="lg" */}
               <div className="grid grid-cols-4 gap-4 max-[480px]:grid-cols-2">
                 {[
-                  { label: "Total",    value: satelites.length,                                   color: "#29c5f6" },
-                  { label: "Críticos", value: satelites.filter(s=>s.status==="CRITICO").length,   color: "#e84c1c" },
-                  { label: "Atenção",  value: satelites.filter(s=>s.status==="ATENCAO").length,   color: "#f0a030" },
-                  { label: "Normais",  value: satelites.filter(s=>s.status==="NORMAL").length,    color: "#22c55e" },
+                  { label: "Total",    value: String(satelites.length),                                   color: "#29c5f6" },
+                  { label: "Críticos", value: String(satelites.filter(s=>s.status==="CRITICO").length),   color: "#e84c1c" },
+                  { label: "Atenção",  value: String(satelites.filter(s=>s.status==="ATENCAO").length),   color: "#f0a030" },
+                  { label: "Normais",  value: String(satelites.filter(s=>s.status==="NORMAL").length),    color: "#22c55e" },
                 ].map(s => (
                   // cada card tem borda colorida de acordo com a categoria
-                  <div key={s.label} className="flex flex-col gap-1 p-4 rounded-2xl bg-white/[0.03]" style={{ border: `1px solid ${s.color}22` }}>
-                    <span className="font-['Exo_2',sans-serif] font-bold text-[1.8rem]" style={{ color: s.color }}>{s.value}</span>
-                    <span className="text-white/40 text-[0.75rem] uppercase tracking-wider font-['Exo_2',sans-serif]">{s.label}</span>
-                  </div>
+                  <StatBox key={s.label} label={s.label} value={s.value} color={s.color} size="lg" className="rounded-2xl" />
                 ))}
               </div>
 
@@ -125,27 +113,17 @@ function Dashboard() {
                         <p className="text-white/40 text-[0.8rem]">NORAD #{sat.norad} · {sat.orbita} · {sat.altitude.toLocaleString()} km</p>
                       </div>
                     </div>
-                    {/* badge de status no canto direito */}
-                    <span className="font-['Exo_2',sans-serif] text-[0.72rem] font-bold uppercase tracking-wider px-3 py-1 rounded-full"
-                      style={{ color: cor, backgroundColor: cor + "18", border: `1px solid ${cor}33` }}>
-                      {statusLabel[sat.status]}
-                    </span>
+                    {/* badge de status no canto direito — usa StatusBadge */}
+                    <Badge status={sat.status} />
                   </div>
 
                   {/* 3 métricas do satélite: combustível, risco de colisão e altitude */}
                   {/* combustível fica vermelho se for menor que 40% (alerta de pouco combustível) */}
+                  {/* usa StatBox com bgAlpha="low" */}
                   <div className="grid grid-cols-3 gap-4 max-[480px]:grid-cols-1">
-                    {[
-                      { label: "Combustível",      value: `${sat.combustivel}%`,              color: sat.combustivel < 40 ? "#e84c1c" : "#22c55e" },
-                      { label: "Risco de colisão", value: `${sat.riscoColisao}%`,             color: cor },
-                      { label: "Altitude",         value: `${sat.altitude.toLocaleString()} km`, color: "#29c5f6" },
-                    ].map(m => (
-                      <div key={m.label} className="flex flex-col gap-1 p-4 rounded-xl bg-white/[0.03]"
-                        style={{ border: "1px solid rgba(255,255,255,0.06)" }}>
-                        <span className="text-white/40 text-[0.72rem] uppercase tracking-wider font-['Exo_2',sans-serif]">{m.label}</span>
-                        <span className="font-['Exo_2',sans-serif] font-bold text-[1.3rem]" style={{ color: m.color }}>{m.value}</span>
-                      </div>
-                    ))}
+                    <StatBox label="Combustível"      value={`${sat.combustivel}%`}                 color={sat.combustivel < 40 ? "#e84c1c" : "#22c55e"} bgAlpha="low" />
+                    <StatBox label="Risco de colisão" value={`${sat.riscoColisao}%`}                color={cor} bgAlpha="low" />
+                    <StatBox label="Altitude"         value={`${sat.altitude.toLocaleString()} km`} color="#29c5f6" bgAlpha="low" />
                   </div>
 
                   {/* navegação do carrossel */}

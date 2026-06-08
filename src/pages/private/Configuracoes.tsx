@@ -3,6 +3,8 @@ import { useForm } from "react-hook-form";
 import { Check, User, Lock, LogOut, Mail, Building2 } from "lucide-react";
 import Header from "../components/HeaderPrivado";
 import Footer from "../components/Footer";
+import TitlePage from "../components/TitlePage";
+import InputField from "../components/InputField";
 
 // tipos
 interface PerfilForm {
@@ -17,16 +19,8 @@ interface SenhaForm {
 
 const API_URL = import.meta.env.VITE_API_URL ?? "http://localhost:8080";
 
-// estilos base
-const inputBase =
-  "w-full px-4 py-[0.7rem] rounded-lg text-[0.95rem] font-['Roboto',sans-serif] outline-none transition-colors duration-200 bg-white/[0.04] text-white placeholder:text-white/25";
-
-const inputBorder = (hasError: boolean) =>
-  hasError
-    ? "border-[1.5px] border-[#e84c1c]"
-    : "border-[1.5px] border-white/10 focus:border-[#29c5f6]";
-
-
+// CRÍTICO: Secao e CampoFixo declarados fora do componente pai
+// Se declarados dentro, o React remonta o nó DOM a cada render, causando o bug de desfoco ao digitar (o input perde o foco imediatamente).
 function Secao({ icon, title, children, }: {
   icon: React.ReactNode;
   title: string;
@@ -174,17 +168,10 @@ async function onAlterarSenha(data: SenhaForm) {
       <main className="flex-1 pb-20 min-[992px]:pb-0">
 
         {/* TÍTULO */}
-        <section
-          className="px-24 py-14 max-[480px]:px-6 max-[480px]:py-10 min-[481px]:max-[991px]:px-8 min-[481px]:max-[991px]:py-10"
-          style={{ borderBottom: "1px solid rgba(41,197,246,0.1)" }}
-        >
-          <h1 className="font-['Exo_2',sans-serif] font-bold text-[2.5rem] max-[480px]:text-[1.8rem] mb-2">
-            Confi<span className="text-[#29c5f6]">gurações</span>
-          </h1>
-          <p className="text-white/50 text-[0.95rem]">
-            Gerencie seus dados de perfil e acesso à plataforma.
-          </p>
-        </section>
+        <TitlePage
+          titulo="Confi" tituloDestaque="gurações"
+          subtitulo="Gerencie seus dados de perfil e acesso à plataforma."
+        />
 
         <section className="px-24 py-14 max-[480px]:px-6 max-[480px]:py-10 min-[481px]:max-[991px]:px-8 min-[481px]:max-[991px]:py-10 grid gap-16 grid-cols-[1fr_22rem] items-start max-[991px]:grid-cols-1 max-[991px]:gap-10">
 
@@ -195,23 +182,17 @@ async function onAlterarSenha(data: SenhaForm) {
               <form onSubmit={handlePerfil(onSalvarPerfil)} noValidate
                 className="flex flex-col gap-4"
               >
-                {/* nome: único campo que da pra editar */}
-                <div className="flex flex-col gap-1.5">
-                  <label className="font-['Exo_2',sans-serif] font-bold text-[0.78rem] text-white/50 uppercase tracking-wider">
-                    Nome*
-                  </label>
-                  <input
-                    type="text" placeholder="Seu nome completo"
-                    className={`${inputBase} ${inputBorder(!!errPerfil.nome)}`}
-                    {...regPerfil("nome", {
-                      required: "Nome é obrigatório", 
-                      minLength: { value: 3, message: "Mínimo 3 caracteres" },
-                    })}
-                  />
-                  {errPerfil.nome && (
-                    <span className="text-[#e84c1c] text-[0.78rem]">{errPerfil.nome.message}</span>
-                  )}
-                </div>
+                {/* nome: único campo que da pra editar — usa InputField */}
+                <InputField
+                  label="Nome*"
+                  error={errPerfil.nome?.message}
+                  type="text"
+                  placeholder="Seu nome completo"
+                  {...regPerfil("nome", {
+                    required: "Nome é obrigatório", 
+                    minLength: { value: 3, message: "Mínimo 3 caracteres" },
+                  })}
+                />
 
                 {/* email: somente leitura */}
                 <CampoFixo label="E-mail" value={emailFixo} icon={<Mail size={14} />} />
@@ -240,58 +221,40 @@ async function onAlterarSenha(data: SenhaForm) {
               <form onSubmit={handleSenha(onAlterarSenha)} noValidate
                 className="flex flex-col gap-4"
               >
-                <div className="flex flex-col gap-1.5">
-                  <label className="font-['Exo_2',sans-serif] font-bold text-[0.78rem] text-white/50 uppercase tracking-wider">
-                    Senha atual*
-                  </label>
-                  <input
-                    type="password" placeholder="••••••••"
-                    className={`${inputBase} ${inputBorder(!!errSenha.senhaAtual)}`}
-                    {...regSenha("senhaAtual", { required: "Informe sua senha atual" })}
-                  />
-                  {errSenha.senhaAtual && (
-                    <span className="text-[#e84c1c] text-[0.78rem]">{errSenha.senhaAtual.message}</span>
-                  )}
-                </div>
+                {/* usa InputField nos três campos de senha */}
+                <InputField
+                  label="Senha atual*"
+                  error={errSenha.senhaAtual?.message}
+                  type="password"
+                  placeholder="••••••••"
+                  {...regSenha("senhaAtual", { required: "Informe sua senha atual" })}
+                />
 
                 <div className="grid grid-cols-2 gap-4 max-[600px]:grid-cols-1">
-                  <div className="flex flex-col gap-1.5">
-                    <label className="font-['Exo_2',sans-serif] font-bold text-[0.78rem] text-white/50 uppercase tracking-wider">
-                      Nova senha*
-                    </label>
-                    <input
-                      type="password" placeholder="••••••••"
-                      className={`${inputBase} ${inputBorder(!!errSenha.novaSenha)}`}
-                      {...regSenha("novaSenha", {
-                        required: "Informe a nova senha", minLength:  { value: 6,    message: "Mínimo 6 caracteres" },
-                        validate: {
-                          maiuscula: (v) => /[A-Z]/.test(v) || "Precisa de uma letra maiúscula",
-                          minuscula: (v) => /[a-z]/.test(v) || "Precisa de uma letra minúscula",
-                          numero:    (v) => /[0-9]/.test(v) || "Precisa de um número",
-                        },
-                      })}
-                    />
-                    {errSenha.novaSenha && (
-                      <span className="text-[#e84c1c] text-[0.78rem]">{errSenha.novaSenha.message}</span>
-                    )}
-                  </div>
-
-                  <div className="flex flex-col gap-1.5">
-                    <label className="font-['Exo_2',sans-serif] font-bold text-[0.78rem] text-white/50 uppercase tracking-wider">
-                      Confirmar nova senha*
-                    </label>
-                    <input
-                      type="password" placeholder="••••••••"
-                      className={`${inputBase} ${inputBorder(!!errSenha.confirmaSenha)}`}
-                      {...regSenha("confirmaSenha", {
-                        required: "Confirme a nova senha",
-                        validate: (v) => v === novaSenhaWatch || "As senhas não coincidem",
-                      })}
-                    />
-                    {errSenha.confirmaSenha && (
-                      <span className="text-[#e84c1c] text-[0.78rem]">{errSenha.confirmaSenha.message}</span>
-                    )}
-                  </div>
+                  <InputField
+                    label="Nova senha*"
+                    error={errSenha.novaSenha?.message}
+                    type="password"
+                    placeholder="••••••••"
+                    {...regSenha("novaSenha", {
+                      required: "Informe a nova senha", minLength: { value: 6, message: "Mínimo 6 caracteres" },
+                      validate: {
+                        maiuscula: (v) => /[A-Z]/.test(v) || "Precisa de uma letra maiúscula",
+                        minuscula: (v) => /[a-z]/.test(v) || "Precisa de uma letra minúscula",
+                        numero:    (v) => /[0-9]/.test(v) || "Precisa de um número",
+                      },
+                    })}
+                  />
+                  <InputField
+                    label="Confirmar nova senha*"
+                    error={errSenha.confirmaSenha?.message}
+                    type="password"
+                    placeholder="••••••••"
+                    {...regSenha("confirmaSenha", {
+                      required: "Confirme a nova senha",
+                      validate: (v) => v === novaSenhaWatch || "As senhas não coincidem",
+                    })}
+                  />
                 </div>
 
                 {/* checklist de regras de validação de senha */}

@@ -57,6 +57,9 @@ function Cadastro() {
     } catch (e: any) {
       setErroCadastro(e.message ?? "Não foi possível criar a conta. Tente novamente.");
     }
+  async function onSubmit(_data: CadastroForm) {
+    await new Promise((r) => setTimeout(r, 900));
+    setTimeout(() => navigate("/login"), 1200);
   }
 
   return (
