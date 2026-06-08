@@ -28,27 +28,6 @@ function Login() {
     formState: { errors, isSubmitting },
   } = useForm<LoginForm>();
 
-  // Integração futura com Quarkus
-  // Quando o backend estiver pronto com CORS configurado,
-  // descomente o bloco abaixo e remova o bloco de fallback:
-  //
-  // async function onSubmit(data: LoginForm) {
-  //   try {
-  //     const res = await fetch(`${API_URL}/auth/login`, {
-  //       method: "POST",
-  //       headers: { "Content-Type": "application/json" },
-  //       body: JSON.stringify({ email: data.email, senha: data.senha }),
-  //     });
-  //     if (!res.ok) throw new Error("Credenciais inválidas");
-  //     const { token } = await res.json();
-  //     localStorage.setItem("token", token);   // salva JWT para RotaPrivada
-  //     sessionStorage.removeItem("logado");    // remove flag temporário
-  //     navigate("/dashboard");
-  //   } catch {
-  //     setErroLogin("E-mail ou senha incorretos.");
-  //   }
-  // }
-  //
   async function onSubmit(_data: LoginForm) {
     await new Promise((r) => setTimeout(r, 800));
     sessionStorage.setItem("logado", "true");

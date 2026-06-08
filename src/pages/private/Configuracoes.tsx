@@ -20,8 +20,7 @@ interface SenhaForm {
 const API_URL = import.meta.env.VITE_API_URL ?? "http://localhost:8080";
 
 // CRÍTICO: Secao e CampoFixo declarados fora do componente pai
-// Se declarados dentro, o React remonta o nó DOM a cada render,
-// causando o bug de desfoco ao digitar (o input perde o foco imediatamente).
+// Se declarados dentro, o React remonta o nó DOM a cada render, causando o bug de desfoco ao digitar (o input perde o foco imediatamente).
 function Secao({ icon, title, children, }: {
   icon: React.ReactNode;
   title: string;

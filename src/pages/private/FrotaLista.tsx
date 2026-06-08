@@ -43,9 +43,11 @@ const riscoCfg = {
 function ModalCadastro({
   onSave,
   onClose,
+  erroNorad,
 }: {
   onSave: (data: NovoSateliteForm) => Promise<void>;
   onClose: () => void;
+  erroNorad?: string;
 }) {
   const {
     register,
@@ -54,6 +56,9 @@ function ModalCadastro({
   } = useForm<NovoSateliteForm>();
 
   const selectCls = `${inputBaseModal} ${inputBorderModal(false)}`;
+
+  // sobre o erro de validação local do react-hook-form
+  const noradError = erroNorad ?? errors.noradId?.message;
 
   return (
     <ModalWrapper title="Cadastrar novo satélite" onClose={onClose} maxWidth="28rem">
@@ -69,7 +74,8 @@ function ModalCadastro({
 
         {/* NORAD + COSPAR */}
         <div className="grid grid-cols-2 gap-3">
-          <InputField label="NORAD ID*" error={errors.noradId?.message} variant="modal"
+          {/* NORAD ID: exibe erro local ou erro da API (satélite não encontrado) */}
+          <InputField label="NORAD ID*" error={noradError} variant="modal"
             placeholder="Ex: 47699"
             {...register("noradId", {
               required: "NORAD é obrigatório",
@@ -113,7 +119,7 @@ function ModalCadastro({
             className="flex-1 py-2.5 rounded-xl font-['Exo_2',sans-serif] font-bold text-[0.85rem] cursor-pointer flex items-center justify-center gap-2 border-none disabled:opacity-50"
             style={{ backgroundColor: "#29c5f6", color: "#06090f" }}>
             <Check size={16} />
-            {isSubmitting ? "Cadastrando..." : "Cadastrar"}
+            {isSubmitting ? "Verificando..." : "Cadastrar"}
           </button>
         </div>
       </form>
@@ -129,8 +135,9 @@ function FrotaLista() {
   const [filtro, setFiltro] = useState<"TODOS" | "ALERTA" | "OK">("TODOS");
   const [modalAberto, setModalAberto] = useState(false);
 
-  // UC01/UC06 — GET /satelites
-  // quarkus: retorna array Satelite[] com statusRisco calculado pelo modelo Python
+  // erro de validação NORAD ID: fica no estado da página para poder ser passado pro modal sem fechar ele
+  const [erroNorad, setErroNorad] = useState<string | undefined>(undefined);
+
   useEffect(() => {
     fetch(`${API_URL}/satelites`)
       .then((r) => {
@@ -170,8 +177,12 @@ function FrotaLista() {
       .finally(() => setLoading(false));
   }, []);
 
-  // UC02 — POST /satelites (react-hook-form)
+  // Antes de adicionar na lista, valida se o satélite realmente existe
+  // Se a API retornar 404, mantém o modal aberto com erro no campo NORAD ID.
   async function handleCadastrar(data: NovoSateliteForm) {
+    // limpa erro anterior a cada nova tentativa
+    setErroNorad(undefined);
+
     try {
       const res = await fetch(`${API_URL}/satelites`, {
         method: "POST",
@@ -187,7 +198,17 @@ function FrotaLista() {
           deltaV:       0,
         }),
       });
-      if (!res.ok) throw new Error("api error");
+
+      if (!res.ok) {
+        // 404 = NORAD ID não existe nos registros da API
+        // outros erros (400, 500) também impedem o cadastro
+        setErroNorad(
+          "Satélite não encontrado nos registros. Verifique o NORAD ID e tente novamente."
+        );
+        // mantém o modal aberto para o usuário corrigir
+        return;
+      }
+
       const api = await res.json();
       const novo: Satelite = {
         id:          api.id,
@@ -199,17 +220,18 @@ function FrotaLista() {
         probColisao: api.probColisao ?? 0,
         statusRisco: api.statusRisco ?? "ok",
       };
+
+      // satélite válido: adiciona na lista e fecha o modal
       setSatelites((prev) => [...prev, novo]);
+      setModalAberto(false);
+
     } catch {
-      const novoLocal: Satelite = {
-        id: Date.now(),
-        ...data,
-        probColisao: 0,
-        statusRisco: "ok",
-      };
-      setSatelites((prev) => [...prev, novoLocal]);
+      // erro de rede (CORS, servidor offline): não cria objeto, pois não tem como validar se o NORAD ID existe ou não
+      setErroNorad(
+        "Não foi possível conectar à API. Verifique a conexão e tente novamente."
+      );
+      // mantém o modal aberto
     }
-    setModalAberto(false);
   }
 
   const filtrados = satelites.filter((s) => {
@@ -299,7 +321,6 @@ function FrotaLista() {
                         <span className="font-['Exo_2',sans-serif] font-bold text-white text-[1rem]">
                           {sat.nome}
                         </span>
-                        {/* badge de status — usa StatusBadge */}
                         <Badge status={sat.statusRisco} />
                       </div>
                       <p className="text-white/40 text-[0.8rem] mt-0.5">
@@ -342,7 +363,15 @@ function FrotaLista() {
       </div>
 
       {modalAberto && (
-        <ModalCadastro onSave={handleCadastrar} onClose={() => setModalAberto(false)} />
+        <ModalCadastro
+          onSave={handleCadastrar}
+          onClose={() => {
+            setModalAberto(false);
+            // limpa o erro ao fechar para não aparecer em uma próxima abertura
+            setErroNorad(undefined);
+          }}
+          erroNorad={erroNorad}
+        />
       )}
     </div>
   );

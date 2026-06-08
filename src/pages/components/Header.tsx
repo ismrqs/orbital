@@ -37,7 +37,7 @@ function Header() {
         <Menu open={open} />
       </div>
 
-      {/* Drawer mobile/tablet (até 991px) */}
+      {/* mobile/tablet (até 991px) */}
       <div
         className={`[@media(min-width:992px)]:hidden absolute top-full left-0 w-full z-200 transition-all duration-300
           ${open

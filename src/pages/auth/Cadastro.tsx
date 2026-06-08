@@ -55,29 +55,6 @@ function Cadastro() {
     { label: "Senhas coincidem",    ok: senhaWatch.length > 0 && senhaWatch === confirmaSenhaWatch },
   ];
 
-  // Integração futura com Quarkus
-  // Quando o backend estiver pronto com CORS configurado,
-  // descomente o bloco abaixo e remova o bloco de fallback:
-  //
-  // async function onSubmit(data: CadastroForm) {
-  //   try {
-  //     const res = await fetch(`${API_URL}/auth/cadastro`, {
-  //       method: "POST",
-  //       headers: { "Content-Type": "application/json" },
-  //       body: JSON.stringify({
-  //         nome: data.nome,
-  //         email: data.email,
-  //         organizacao: data.organizacao,
-  //         senha: data.senha,
-  //       }),
-  //     });
-  //     if (!res.ok) throw new Error("Erro ao cadastrar");
-  //     // Sucesso: isSubmitSuccessful vira true → mostra tela de sucesso → redireciona para /login
-  //   } catch {
-  //     setErroCadastro("Não foi possível criar a conta. Tente novamente.");
-  //   }
-  // }
-  //
   async function onSubmit(_data: CadastroForm) {
     await new Promise((r) => setTimeout(r, 900));
     setTimeout(() => navigate("/login"), 1200);

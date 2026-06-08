@@ -352,8 +352,6 @@ function SateliteDetalhe() {
 
   useEffect(() => { carregar(); }, [id]);
 
-  // UC04 — Atualizar dados (GET /satelites/:noradId de novo)
-  // Quarkus: re-executa o modelo Python de classificação e atualiza statusRisco
   async function handleMonitorar() {
     setMonitorando(true);
     carregar();
@@ -362,9 +360,6 @@ function SateliteDetalhe() {
     setTimeout(() => setFeedback(""), 3000);
   }
 
-  // UC03 — POST /manobra
-  // Quarkus: recebe { noradId } → chama modelo Python de regressão → retorna manobra
-  // Resposta: { janelaExecucao, deltaV, objetoRisco, descricao }
   async function handleCalcularManobra() {
     if (!satelite) return;
     setCalculando(true);
@@ -497,7 +492,7 @@ function SateliteDetalhe() {
 
             {/* botão principal muda conforme statusRisco */}
             {satelite.statusRisco === "ok" ? (
-              // UC04 — Monitorar (GET): sem risco, só atualiza dados
+              // Monitorar (GET): sem risco, só atualiza dados
               <button onClick={handleMonitorar} disabled={monitorando}
                 className="w-full py-4 rounded-xl font-['Exo_2',sans-serif] font-bold text-[0.95rem] border-none cursor-pointer transition-colors duration-200 flex items-center justify-center gap-2 disabled:opacity-60"
                 style={{ backgroundColor: "rgba(34,197,94,0.12)", color: "#22c55e", border: "1px solid rgba(34,197,94,0.25)" }}>
@@ -505,7 +500,7 @@ function SateliteDetalhe() {
                 {monitorando ? "Atualizando..." : "Monitorar satélite"}
               </button>
             ) : satelite.statusRisco === "warn" ? (
-              // UC03 — Calcular Manobra (POST): risco moderado
+              // Calcular Manobra (POST): risco moderado
               <button onClick={handleCalcularManobra} disabled={calculando}
                 className="w-full py-4 rounded-xl font-['Exo_2',sans-serif] font-bold text-[0.95rem] border-none cursor-pointer transition-all duration-200 flex items-center justify-center gap-2 disabled:opacity-60"
                 style={{ backgroundColor: "#f0a030", color: "#06090f" }}>
@@ -513,7 +508,7 @@ function SateliteDetalhe() {
                 {calculando ? "Calculando..." : "Calcular Manobra"}
               </button>
             ) : (
-              // UC03 — Manobra Emergencial (POST): risco crítico
+              // Manobra Emergencial (POST): risco crítico
               <button onClick={handleCalcularManobra} disabled={calculando}
                 className="w-full py-4 rounded-xl font-['Exo_2',sans-serif] font-bold text-[0.95rem] border-none cursor-pointer flex items-center justify-center gap-2 disabled:opacity-60"
                 style={{ backgroundColor: "#e84c1c", color: "#fff", animation: "pulse 1.5s infinite" }}>
@@ -522,7 +517,7 @@ function SateliteDetalhe() {
               </button>
             )}
 
-            {/* UC04 — Monitorar sempre disponível em warn/danger */}
+            {/* Monitorar sempre disponível em warn/danger */}
             {satelite.statusRisco !== "ok" && (
               <button onClick={handleMonitorar} disabled={monitorando}
                 className="w-full py-3.5 rounded-xl font-['Exo_2',sans-serif] font-bold text-[0.9rem] cursor-pointer transition-colors duration-200 flex items-center justify-center gap-2 disabled:opacity-60 bg-transparent"
