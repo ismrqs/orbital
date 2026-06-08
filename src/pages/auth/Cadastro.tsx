@@ -4,14 +4,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { Lock, Mail, User, Building2, ArrowRight, Check } from "lucide-react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-
-interface CadastroForm {
-  nome: string;
-  email: string;
-  organizacao: string;
-  senha: string;
-  confirmaSenha: string;
-}
+import type { CadastroForm } from "../../types/UsuarioType";
+import { postCadastro } from "../../api/PostCadastro";
 
 const inputBase =
   "w-full px-4 py-[0.75rem] rounded-lg text-[0.95rem] font-['Roboto',sans-serif] outline-none transition-colors duration-200 bg-white/[0.04] text-white placeholder:text-white/25";
@@ -34,7 +28,7 @@ function InputIcon({ icon }: { icon: React.ReactNode }) {
 
 function Cadastro() {
   const navigate = useNavigate();
-  const [erroCadastro] = useState("");
+  const [erroCadastro, setErroCadastro] = useState("");
 
   const {
     register,
@@ -55,9 +49,14 @@ function Cadastro() {
     { label: "Senhas coincidem",    ok: senhaWatch.length > 0 && senhaWatch === confirmaSenhaWatch },
   ];
 
-  async function onSubmit(_data: CadastroForm) {
-    await new Promise((r) => setTimeout(r, 900));
-    setTimeout(() => navigate("/login"), 1200);
+
+  async function onSubmit(data: CadastroForm) {
+    try {
+      await postCadastro(data);
+      setTimeout(() => navigate("/login"), 1200);
+    } catch (e: any) {
+      setErroCadastro(e.message ?? "Não foi possível criar a conta. Tente novamente.");
+    }
   }
 
   return (
