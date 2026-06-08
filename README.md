@@ -42,10 +42,6 @@ O front-end em React consome uma API REST desenvolvida em Java com Quarkus, que 
 
 ```
 orbital/
-├── public/
-│   ├── favicon.svg
-│   └── icons.svg
-│
 └── src/
     ├── api/                          # Funções de chamada à API Quarkus
     │   ├── GetAlertas.ts
@@ -149,6 +145,14 @@ A aplicação estará disponível em `http://localhost:5173`
 ## 🖼️ Imagens do projeto
 
 <div align="center">
+
+| Home | Dashboard |
+|:---:|:---:|
+| <img width="1365" height="799" alt="Image" src="https://github.com/user-attachments/assets/5dcc8d7e-eca4-47ff-89fc-dfebb6ab9b1f" /> | <img width="1365" height="1096" alt="Image" src="https://github.com/user-attachments/assets/9c4b54d1-3286-4616-ab74-b1a6139f1298" /> |
+
+| Central de alertas | Meus satélites |
+|:---:|:---:|
+| <img width="1365" height="1227" alt="Image" src="https://github.com/user-attachments/assets/33c1bc44-8aa2-4120-be36-69daf4a22a55" /> | <img width="1364" height="759" alt="Image" src="https://github.com/user-attachments/assets/0fa0eec7-0608-466b-9b3c-2ae0b67cbf86" /> |
 
 </div>
 
