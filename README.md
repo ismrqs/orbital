@@ -42,10 +42,6 @@ O front-end em React consome uma API REST desenvolvida em Java com Quarkus, que 
 
 ```
 orbital/
-├── public/
-│   ├── favicon.svg
-│   └── icons.svg
-│
 └── src/
     ├── api/                          # Funções de chamada à API Quarkus
     │   ├── GetAlertas.ts
