@@ -2,7 +2,7 @@
 
 # Orbital - Space Connect
 
-<img src="https://img.shields.io/badge/Status-Em%20Andamento-blue?style=for-the-badge" />
+<img src="https://img.shields.io/badge/Status-Concluído-brightgreen?style=for-the-badge" />
 <img src="https://img.shields.io/badge/Curso-ADS-blueviolet?style=for-the-badge" />
 <img src="https://img.shields.io/badge/Institui%C3%A7%C3%A3o-FIAP-red?style=for-the-badge" />
 <img src="https://img.shields.io/badge/Semestre-2%C2%BA-orange?style=for-the-badge" />
