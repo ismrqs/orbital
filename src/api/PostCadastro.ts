@@ -6,7 +6,6 @@ const API_URL = import.meta.env.VITE_API_URL ?? "https://orbital-java.onrender.c
 
 // POST /auth/cadastro
 // Envia os dados do formulário para o Java
-// confirmaSenha é removida antes de enviar — o Java não precisa dela
 export async function postCadastro(data: CadastroForm): Promise<void> {
   const body: UsuarioAPI = {
     nome:         data.nome,
